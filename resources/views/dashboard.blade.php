@@ -11,6 +11,15 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
+                <div>
+                    <div class="container mx-auto">
+                        <a href="{{ route('categorias') }}" class="block w-full bg-blue-600 text-black uppercase rounded hover:bg-blue-500 py-2 text-center">
+                            Ir a Categorías
+                        </a>
+                    </div>
+
+
+                </div>
             </div>
         </div>
     </div>
