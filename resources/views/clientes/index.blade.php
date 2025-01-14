@@ -1,3 +1,8 @@
-<h1>Mis Clientes</h1>
+@extends('layouts.app')
 
+@section('title', 'Categorías')
+
+@section('content')
+    <h1>Lista de Clientes</h1>
+@endsection
 

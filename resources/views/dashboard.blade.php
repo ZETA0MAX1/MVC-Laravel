@@ -1,35 +1,38 @@
-<?php
-@include('template.head')
-?>
+@extends('layouts.app')
 
-<div class="containers text-center">
-  <img src="{{ asset('images/logo.jpg') }}" alt="Descripción">
-    <nav>
-      <ul style="list-style-type: none; text-align: center; padding: 0;">
-          <li><a href="#" style="display: inline-block;">Informacion de la cuenta</a></li>
-          <li><a href="../views/cambio_de_contraseña.php" style="display: inline-block;">Cambiar Contraseña</a></li>
-          <li><a href="../controllers/logout.php" style="display: inline-block;">Cerrar Sesión</a></li>
-      </ul>
-    </nav>
-</div>
-<div class="container-fluid text-center">
-  <div class="row content">
-    <div class="col-sm-2">
-        @include('template.menu')
+@section('title', 'Dashboard')
+
+@section('content')
+<div class="container">
+    <h1 class="mb-4">Bienvenido al Dashboard</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Usuarios</h5>
+                    <p class="card-text">Gestiona los usuarios registrados.</p>
+                    <a href="#" class="btn btn-primary">Ver más</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reportes</h5>
+                    <p class="card-text">Consulta estadísticas y reportes.</p>
+                    <a href="#" class="btn btn-primary">Ver más</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Configuración</h5>
+                    <p class="card-text">Personaliza la aplicación.</p>
+                    <a href="#" class="btn btn-primary">Ver más</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-8">
-
-      <?php //include 'template/tabla.php';?>
-
-    </div>
-    <div class="col-sm-2">
-      <div class="well">
-        <img src="{{ asset('images/enlace1.jpg') }}" alt="Descripción">
-      </div>
-      <div class="well">
-        <img src="{{ asset('images/enlace2.jpg') }}" alt="Descripción">
-        <img src="{{ asset('images/enlace3.jpg') }}" alt="Descripción">
-      </div>
-  </div>
-  </div>
 </div>
+@endsection

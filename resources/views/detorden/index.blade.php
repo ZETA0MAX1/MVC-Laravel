@@ -1,1 +1,8 @@
-<h1>DETALLE ORDEN</h1>
+
+@extends('layouts.app')
+
+@section('title', 'DetalleOrden')
+
+@section('content')
+    <h1>Detalle de Orden</h1>
+@endsection

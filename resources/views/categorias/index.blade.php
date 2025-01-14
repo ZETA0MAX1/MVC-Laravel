@@ -1,2 +1,7 @@
-<h1>Mis Categorías</h1>
-<a href="{{ url()->previous() }}" class="btn btn-primary">Regresar</a>
+@extends('layouts.app')
+
+@section('title', 'Categorías')
+
+@section('content')
+    <h1>Lista de Categorias</h1>
+@endsection

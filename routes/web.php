@@ -14,18 +14,18 @@ use DragonCode\Contracts\Cashier\Config\Main;
 
 Route::get('/', [MainController::class, 'index'])->name('dashboard');
 
-Route::get('/categoria', [CategoriaController::class, 'index'])->name('categorias');
+Route::resource('categorias', CategoriaController::class);
 
-Route::get('/cliente', [ClienteController::class, 'index'])->name('cliente');
+Route::resource('cliente', ClienteController::class);
 
-Route::get('/empleado', [EmpleadoController::class, 'index'])->name('empleado');
+Route::resource('empleado', EmpleadoController::class);
 
-Route::get('/det_orden', [DetalleOrdenController::class, 'index'])->name('det_orden');
+Route::resource('det_orden', DetalleOrdenController::class);
 
-Route::get('/orden', [OrdenCOntroller::class, 'index'])->name('orden');
+Route::resource('orden', OrdenCOntroller::class);
 
-Route::get('/producto', [ProductoController::class, 'index'])->name('producto');
+Route::resource('producto', ProductoController::class);
 
-Route::get('/transporte', [TransporteController::class, 'index'])->name('transporte');
+Route::resource('transporte', TransporteController::class);
 
-Route::get('/proveedor', [ProveedorController::class, 'index'])->name('proveedor');
+Route::resource('proveedor', ProveedorController::class);
