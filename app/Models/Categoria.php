@@ -9,4 +9,7 @@ class Categoria extends Model
 {
     use HasFactory;
     protected $table = 'categoria';
+    protected $primaryKey = 'CategoriaID';
+    public $timestamps = true;
+    protected $fillable = ['CategoriaNombre','Descripcion'];
 }

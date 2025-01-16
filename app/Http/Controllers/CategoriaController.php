@@ -20,14 +20,14 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'titulo' => 'required',
-            'contenido' => 'required',
+            'CategoriaNombre' => 'required',
+            'Description' => 'required',
         ]);
 
         Categoria::create($request->all());
 
-        return redirect()->route('articulos.index')
-                         ->with('success', 'Artículo creado con éxito.');
+        return redirect()->route('categorias.index')
+                         ->with('success', 'Categoría creado con éxito.');
     }
 
     public function show(Categoria $articulo)
@@ -43,14 +43,14 @@ class CategoriaController extends Controller
     public function update(Request $request, Categoria $categoria)
     {
         $request->validate([
-            'titulo' => 'required',
-            'contenido' => 'required',
+            'CategoriaNombre' => 'required',
+            'Description' => 'required',
         ]);
 
         $categoria->update($request->all());
 
-        return redirect()->route('articulos.index')
-                         ->with('success', 'Artículo actualizado con éxito.');
+        return redirect()->route('categorias.index')
+                         ->with('success', 'Categoría actualizado con éxito.');
     }
 
     public function destroy(Categoria $categoria)
