@@ -1,31 +1,39 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Categoria;
 
+use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CategoriaController extends Controller
 {
     public function index()
     {
-        $categorias = Categoria::all(); // Obtiene todas las categorías
+        $categorias = Categoria::all();
         return view('categorias.index', compact('categorias'));
     }
+
     public function search(Request $request)
     {
-        $busqueda = $request->input('busqueda');
+        try {
+            $busqueda = $request->get('busqueda', '');
 
-        $categorias = Categoria::query();
+            $query = Categoria::query();
 
-        if($busqueda) {
-            $categorias = $categorias->where('nombre', 'like', "%$busqueda%");
+            if (!empty($busqueda)) {
+                $query->where('CategoriaNombre', 'LIKE', "%{$busqueda}%");
+            }
+
+            $categorias = $query->get();
+
+            return view('categorias.tabla', compact('categorias'));
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-
-        $categorias = $categorias->get();
-
-        return view('categorias.tabla', compact('categorias'));
     }
+
     public function create()
     {
         return view('categorias.create');
@@ -33,45 +41,38 @@ class CategoriaController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'CategoriaNombre' => 'required',
-            'Description' => 'required',
+        $validated = $request->validate([
+            'CategoriaNombre' => 'required|string|max:255',
+            'Description' => 'nullable|string'
         ]);
 
-        Categoria::create($request->all());
-
-        return redirect()->route('categorias.index')
-                         ->with('success', 'Categoría creado con éxito.');
+        $categoria = Categoria::create($validated);
+        return redirect()->route('categorias.index')->with('success', 'Categoría creada exitosamente');
     }
 
-    public function show(Categoria $articulo)
+    public function edit($id)
     {
-        return view('articulos.show', compact('articulo'));
+        $categoria = Categoria::findOrFail($id);
+        return view('categorias.edit', compact('categoria'));
     }
 
-    public function edit(Categoria $articulo)
+    public function update(Request $request, $id)
     {
-        return view('articulos.edit', compact('articulo'));
-    }
+        $categoria = Categoria::findOrFail($id);
 
-    public function update(Request $request, Categoria $categoria)
-    {
-        $request->validate([
-            'CategoriaNombre' => 'required',
-            'Description' => 'required',
+        $validated = $request->validate([
+            'CategoriaNombre' => 'required|string|max:255',
+            'Description' => 'nullable|string'
         ]);
 
-        $categoria->update($request->all());
-
-        return redirect()->route('categorias.index')
-                         ->with('success', 'Categoría actualizado con éxito.');
+        $categoria->update($validated);
+        return redirect()->route('categorias.index')->with('success', 'Categoría actualizada exitosamente');
     }
 
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
+        $categoria = Categoria::findOrFail($id);
         $categoria->delete();
-
-        return redirect()->route('articulos.index')
-                         ->with('success', 'Artículo eliminado con éxito.');
+        return redirect()->route('categorias.index')->with('success', 'Categoría eliminada exitosamente');
     }
 }

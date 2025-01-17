@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($categorias as $categoria)
+        @forelse($categorias as $categoria)
             <tr>
                 <td>{{ $categoria->CategoriaID }}</td>
                 <td>{{ $categoria->CategoriaNombre }}</td>
@@ -18,6 +18,10 @@
                     <button class="btn btn-sm btn-danger">Eliminar</button>
                 </td>
             </tr>
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="4" class="text-center">No se encontraron resultados</td>
+            </tr>
+        @endforelse
     </tbody>
 </table>
