@@ -12,6 +12,20 @@ class CategoriaController extends Controller
         $categorias = Categoria::all(); // Obtiene todas las categorías
         return view('categorias.index', compact('categorias'));
     }
+    public function search(Request $request)
+    {
+        $busqueda = $request->input('busqueda');
+
+        $categorias = Categoria::query();
+
+        if($busqueda) {
+            $categorias = $categorias->where('nombre', 'like', "%$busqueda%");
+        }
+
+        $categorias = $categorias->get();
+
+        return view('categorias.tabla', compact('categorias'));
+    }
     public function create()
     {
         return view('categorias.create');

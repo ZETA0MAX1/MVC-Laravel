@@ -16,6 +16,8 @@ Route::get('/', [MainController::class, 'index'])->name('dashboard');
 
 Route::resource('categorias', CategoriaController::class);
 
+Route::get("categorias/search", [App\Http\Controllers\CategoriaController::class, "search"])->name("categorias.search");
+
 Route::resource('cliente', ClienteController::class);
 
 Route::resource('empleado', EmpleadoController::class);

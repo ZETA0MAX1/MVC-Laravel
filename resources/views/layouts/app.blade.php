@@ -57,22 +57,6 @@
             <!-- Content -->
             <div class="col-md-9">
                 <div class="py-4">
-                    <div class="container">
-                        <!--<h2>Busqueda :</h2>
-
-                        <div class="card-body">
-                            <form class="form-inline" id="formulario-busqueda">
-                                <label class="my-1 mr-2" for="busqueda">Nombre</label>
-                                <input type="text" class="form-control my-1 mr-sm-2" id="busqueda" name="busqueda">
-                                <button type="submit" class="btn btn-primary my-1">Buscar</button>
-                                <button onclick="modalCr
-                                ear()" type="button" class="btn btn-success my-1 mx-1">Nuevo</button>
-                            </form>
-                        </div>
-                        -->
-                    </div>
-                </div>
-                <div class="py-4">
                     @yield('content')
                 </div>
             </div>
@@ -81,5 +65,10 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </body>
 </html>
