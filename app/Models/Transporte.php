@@ -9,4 +9,7 @@ class Transporte extends Model
 {
     use HasFactory;
     protected $table = 'transportista';
+    protected $primaryKey = 'transportistaID';
+    public $timestamps=true;
+    protected $fillable=['NombreTransportista','Ciudad','Celular'];
 }

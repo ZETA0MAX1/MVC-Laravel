@@ -16,7 +16,6 @@ class CategoriaController extends Controller
 
     public function search(Request $request)
     {
-        try {
             $busqueda = $request->get('busqueda', '');
 
             $query = Categoria::query();
@@ -29,9 +28,6 @@ class CategoriaController extends Controller
 
             return view('categorias.tabla', compact('categorias'));
 
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
     }
 
     public function create()

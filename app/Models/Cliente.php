@@ -9,4 +9,7 @@ class Cliente extends Model
 {
     use HasFactory;
     protected $table = 'cliente';
+    protected $primaryKey = 'ClienteID';
+    public $timestamps=true;
+    protected $fillable =['cLienteNombre','ciudad','pais'];
 }

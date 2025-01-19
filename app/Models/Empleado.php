@@ -9,4 +9,7 @@ class Empleado extends Model
 {
     use HasFactory;
     protected $table = 'empleado';
+    protected $primaryKey = 'EmpleadoID	';
+    public $timestamps='true';
+    protected $fillable=['Empleadonombre','fecha_nacimiento','foto'];
 }

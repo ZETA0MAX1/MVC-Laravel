@@ -9,4 +9,7 @@ class Proveedor extends Model
 {
     use HasFactory;
     protected $table = 'proveedor';
+    protected $primaryKey = 'ProveedorID';
+    public $timestamps=true;
+    protected $fillable=['Direccion','Ciudad','Pais','Celular'];
 }

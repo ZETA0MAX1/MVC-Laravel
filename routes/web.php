@@ -20,6 +20,9 @@ Route::get('/categorias/search', [CategoriaController::class, 'search'])->name('
 
 Route::resource('cliente', ClienteController::class);
 
+Route::get('clientes/search',[ClienteController::class,'search'])->name('clientes.search');
+
+Route::get('empleado/search',[EmpleadoController::class,'search'])->name('empleado.search');
 Route::resource('empleado', EmpleadoController::class);
 
 Route::resource('det_orden', DetalleOrdenController::class);
@@ -28,6 +31,10 @@ Route::resource('orden', OrdenCOntroller::class);
 
 Route::resource('producto', ProductoController::class);
 
+Route::get('transporte/search',[TransporteController::class,'search'])->name('transporte.search');
 Route::resource('transporte', TransporteController::class);
 
+
 Route::resource('proveedor', ProveedorController::class);
+
+Route::get('/proveedores/search',[ProveedorController::class,'search'])->name('proveedores.search');
