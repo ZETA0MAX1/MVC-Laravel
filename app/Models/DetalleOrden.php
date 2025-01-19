@@ -8,5 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class DetalleOrden extends Model
 {
     use HasFactory;
-    protected $table = 'ordendetale';
+    protected $table = 'detalle_orden';
+    public $timestamps=true;
+    protected $primaryKey='DetalleOrdenID';
+    protected $fillable=['cantidad'];
+    public function orden()
+    {
+        return $this->belongsTo(Orden::class,'OrdenID');
+    }
+    public function producto()
+    {
+        return $this->belongsTo(Producto::class,'ProductoID');
+    }
+
 }
