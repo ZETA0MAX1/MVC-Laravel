@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Categoria extends Model
 {
@@ -11,5 +12,5 @@ class Categoria extends Model
     protected $table = 'categoria';
     protected $primaryKey = 'CategoriaID';
     public $timestamps = true;
-    protected $fillable = ['CategoriaNombre','Descripcion'];
+    protected $fillable = ['CategoriaNombre','Description'];
 }

@@ -37,15 +37,34 @@ class CategoriaController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'CategoriaNombre' => 'required|string|max:255',
-            'Description' => 'nullable|string'
-        ]);
+        try {
+            $request->validate([
+                'CategoriaNombre' => 'required|string|max:255',
+                'Description' => 'required|string'
+            ]);
 
-        $categoria = Categoria::create($validated);
-        return redirect()->route('categorias.index')->with('success', 'Categoría creada exitosamente');
+            $categoria = new Categoria();
+
+            $categoria->CategoriaNombre = $request->CategoriaNombre;
+            $categoria->Description = $request->Description;
+
+            $categoria->save();
+
+            $data = [
+                'message' => 'Registrado correctamente'
+            ];
+
+            return response()->json($data, 201);
+
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            $data = [
+                'message' => 'Error al registrar el tipo de curso. Contactarse con el area de soporte'
+            ];
+            return response()->json($data, 500);
+        }
+
     }
-
     public function edit($id)
     {
         $categoria = Categoria::findOrFail($id);

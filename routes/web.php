@@ -14,9 +14,8 @@ use DragonCode\Contracts\Cashier\Config\Main;
 
 Route::get('/', [MainController::class, 'index'])->name('dashboard');
 
-Route::resource('categorias', CategoriaController::class)->except(['show']);
-
 Route::get('/categorias/search', [CategoriaController::class, 'search'])->name('categorias.search');
+Route::resource('categorias', CategoriaController::class)->except(['show']);
 
 Route::resource('cliente', ClienteController::class);
 
