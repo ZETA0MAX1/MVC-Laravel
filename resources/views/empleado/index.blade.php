@@ -1,10 +1,12 @@
+
 @extends('layouts.app')
 
-@section('title', 'Transportista')
+@section('title', 'Empleados')
 
 @section('content')
+
 <div class="container">
-    <h1>TRANSPORTISTAS</h1>
+    <h1>Mis Empleados</h1>
     <div class="card">
         <div class="card-body">
             <form class="form-inline" id="formulario-busqueda">
@@ -13,7 +15,7 @@
                            class="form-control"
                            id="busqueda"
                            name="busqueda"
-                           placeholder="Ingrese nombres separados por comas (ejemplo: Juan,María,Pedro)"
+                           placeholder="Buscar por nombre de ciudad del proveedor"
                            value="{{ request('busqueda') }}">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-primary">
@@ -30,7 +32,7 @@
         </div>
     </div>
     <div id="listado" class="mt-3">
-        @include('transporte.tabla')
+        @include('empleado.tabla')
     </div>
 </div>
 @endsection
@@ -53,56 +55,54 @@
 @endsection
 @section('javascript')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("formulario-busqueda").addEventListener("submit", function(evento) {
         evento.preventDefault();
         search();
     });
-});
 
-function search() {
-    const busqueda = document.getElementById('busqueda').value.trim();
+    function search() {
+        const busqueda = document.getElementById('busqueda').value.trim();
 
-    axios.get('{{ route('transporte.search') }}', {
-        params: {
-            busqueda: busqueda
-        }
-    })
-    .then(response => {
-        document.getElementById('listado').innerHTML = response.data;
-    })
-    .catch(error => {
-        console.error('Error', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo realizar la búsqueda'
-        });
-    });
-}
-function modalCrear() {
-    console.log('Iniciando modalCrear');
-    const ruta = route('transporte.create');
-
-    axios.get(ruta)
-        .then(function(respuesta) {
-            console.log('Respuesta recibida:', respuesta.data);
-            $('#modal-agregar-contenido').html(respuesta.data);
-            console.log('Contenido insertado');
-
-            const modalElement = document.getElementById('modal-agregar');
-            console.log('Elemento modal:', modalElement);
-
-            const modal = new bootstrap.Modal(modalElement);
-            modal.show();
-            console.log('Modal mostrado');
+        axios.get('{{ route('empleado.search') }}', {
+            params: {
+                busqueda: busqueda
+            }
         })
-        .catch(function(error) {
-            console.error('Error:', error);
+        .then(response => {
+            document.getElementById('listado').innerHTML = response.data;
+        })
+        .catch(error => {
+            console.error('Error', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudo realizar la búsqueda'
+            })
         });
-}
+    }
+    function modalCrear() {
+        console.log('Iniciando modalCrear');
+        const ruta = route('empleado.create');
+
+        axios.get(ruta)
+            .then(function(respuesta) {
+                console.log('Respuesta recibida:', respuesta.data);
+                $('#modal-agregar-contenido').html(respuesta.data);
+                console.log('Contenido insertado');
+
+                const modalElement = document.getElementById('modal-agregar');
+                console.log('Elemento modal:', modalElement);
+
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+                console.log('Modal mostrado');
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+    }
     function guardar(){
-        const ruta = route('transporte.store');
+        const ruta = route('empleado.store');
         const form = document.getElementById('formulario-crear');
         const data = new FormData(form);
 
@@ -123,8 +123,6 @@ function modalCrear() {
                     toastr.error(error);
                 }
             });
-    }
+        }
 </script>
 @endsection
-
-

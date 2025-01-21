@@ -1,20 +1,28 @@
 <div class="modal-header">
-    <h4 class="modal-title">Registrar Categorias</h4>
+    <h4 class="modal-title">Registrar Transportista</h4>
 </div>
 <form action="" id="formulario-crear" autocomplete="off">
+    @csrf
     <div class="modal-body">
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label" for="CategoriaNombre">Nombre</label>
+            <label class="col-sm-4 col-form-label" for="NombreTransportista">NombreTransportista</label>
             <div class="col-sm-8">
-                <input type="text" name="CategoriaNombre" id="CategoriaNombre" class="form-control" required />
+                <input type="text" name="NombreTransportista" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label" for="Description">Descripción</label>
+            <label class="col-sm-4 col-form-label" for="Ciudad">Ciudad</label>
             <div class="col-sm-8">
-                <textarea name="Description" id="Description" class="form-control" rows="3" required></textarea>
+                <input type="text" name="Ciudad" id="Ciudad" class="form-control" required />
             </div>
         </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" for="Celular">Celular</label>
+            <div class="col-sm-8">
+                <input type="text" name="Celular" class="form-control" required>
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">
