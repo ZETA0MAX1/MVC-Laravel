@@ -13,7 +13,7 @@
         <div class="form-group row">
             <label class="col-sm-4 col-form-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
             <div class="col-sm-8">
-                <input type="text"
+                <input type="date"
                        name="fecha_nacimiento"
                        id="fecha_nacimiento"
                        class="form-control"

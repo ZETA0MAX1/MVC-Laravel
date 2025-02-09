@@ -34,6 +34,25 @@
         @include('detorden.tabla')
     </div>
 </div>
+@endsection
+@section('modales')
+    <div class="modal fade" id="modal-agregar" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modal-agregar-contenido">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-editar" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modal-editar-contenido">
+            </div>
+        </div>
+    </div>
+@endsection
+@section('javascript')
 <script>
     document.getElementById("formulario-busqueda").addEventListener("submit", function(evento) {
         evento.preventDefault();
@@ -60,6 +79,51 @@
             });
         });
     }
+    function modalCrear(){
+        console.log('Iniciando modalCrear');
+        const ruta = route('det_orden.create');
+
+        axios.get(ruta)
+        .then(function(respuesta) {
+            console.log('Respuesta recibida:', respuesta.data);
+            $('#modal-agregar-contenido').html(respuesta.data);
+            console.log('Contenido insertado');
+
+            const modalElement = document.getElementById('modal-agregar');
+            console.log('Elemento modal:', modalElement);
+
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+            console.log('Modal mostrado');
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+        });
+    }
+    function guardar(){
+        const ruta = route('det_orden.store');
+        const form = document.getElementById('formulario-crear');
+        const data = new FormData(form);
+
+        axios.post(ruta,data)
+            .then(function(respuesta){
+                const mensaje = respuesta.data.message;
+                toastr.success(mensaje);
+                $('#modal-agregar').modal('hide');
+                search();
+            })
+            .catch(function(error){
+                if(error.response){
+                    toastr.error(error.response.data.message,"Error del sistema");
+                    if(error.response.status == 422){
+                        mostrarErrores('formulario-crear',error.response.data.errors);
+                    }
+                }else{
+                    toastr.error(error);
+                }
+            });
+    }
+
 </script>
  @endsection
 

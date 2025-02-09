@@ -13,7 +13,9 @@ class DetalleOrden extends Model
     protected $table = 'detalle_orden';
     public $timestamps=true;
     protected $primaryKey='DetalleOrdenID';
-    protected $fillable=['cantidad'];
+    protected $fillable=['OrdenID',
+        'ProductoID',
+        'cantidad'];
     public function orden()
     {
         return $this->belongsTo(Orden::class,'OrdenID');
