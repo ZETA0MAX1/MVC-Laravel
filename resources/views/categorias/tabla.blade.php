@@ -14,8 +14,10 @@
                 <td>{{ $categoria->CategoriaNombre }}</td>
                 <td>{{ $categoria->Description }}</td>
                 <td>
-                    <button class="btn btn-sm btn-primary">Editar</button>
-                    <button class="btn btn-sm btn-danger">Eliminar</button>
+                    <button class="btn btn-sm btn-primary" onclick="modalEditar({{ $categoria->CategoriaID }})">Editar</button>
+                    <button class="btn btn-sm btn-danger" onclick="confirmarEliminar({{ $categoria->CategoriaID }})">
+                        Eliminar
+                    </button>
                 </td>
             </tr>
         @empty

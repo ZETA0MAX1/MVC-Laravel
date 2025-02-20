@@ -124,5 +124,80 @@
                 });
 
     }
+    function modalEditar(id){
+        const ruta=route('categorias.edit',[id]);
+
+        axios.get(ruta)
+                .then(function(respuesta) {
+                    $("#modal-editar-contenido").html(respuesta.data);
+                    $("#modal-editar").modal('show');
+                })
+                .catch(function(error) {
+                    if (error.response) {
+                        toastr.error(error.response.data.message, "Error del sistema");
+                    } else {
+                        toastr.error(error);
+                    }
+                });
+    }
+
+    function actualizar(id) {
+        const ruta = route('categorias.update', [id]);
+        const form = document.getElementById("formulario-editar");
+        const data = new FormData(form);
+        data.append('_method', 'PATCH');
+
+        axios.post(ruta, data)
+            .then(function(respuesta) {
+                toastr.success(respuesta.data.message);
+                $('#modal-editar').modal('hide');
+                search();
+            })
+            .catch(function(error) {
+                if (error.response) {
+                    toastr.error(error.response.data.message, 'Error en el sistema');
+                    if (error.response.status === 422) {
+                        mostrarErrores('formulario-editar', error.response.data.errors);
+                    }
+                } else {
+                    toastr.error(error);
+                }
+
+            });
+    }
+    function confirmarEliminar(id) {
+            Swal.fire({
+                title: '¿Está seguro?',
+                text: "Este cambio no se puede deshacer!",
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '<i class="far fa-trash-alt"></i> Si, eliminar!',
+                cancelButtonText: '<i class="far fa-window-close"></i> Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const ruta = route('categorias.destroy', [id]);
+                    const data = new FormData();
+                    data.append('_method', 'DELETE');
+
+                    axios.post(ruta, data)
+                        .then(function(respuesta) {
+                            toastr.success(respuesta.data.message);
+                            search();
+                        })
+                        .catch(function(error) {
+                            if (error.response) {
+                                toastr.error(error.response.data.message, "Error del sistema");
+                            } else {
+                                toastr.error(error);
+                            }
+                        });
+                }
+            });
+    }
+
+
+
 </script>
 @endsection

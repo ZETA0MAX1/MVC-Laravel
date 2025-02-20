@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class CategoriaController extends Controller
 {
@@ -65,29 +66,70 @@ class CategoriaController extends Controller
         }
 
     }
-    public function edit($id)
+    public function edit(string $id)
     {
-        $categoria = Categoria::findOrFail($id);
-        return view('categorias.edit', compact('categoria'));
+        try {
+
+            $categoria = Categoria::find($id);
+
+            return view(' categorias.edit', ["item" => $categoria]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
-    public function update(Request $request, $id)
-    {
-        $categoria = Categoria::findOrFail($id);
 
-        $validated = $request->validate([
+    public function update(Request $request, string $id)
+    {
+        $validator = Validator::make($request->all(),[
             'CategoriaNombre' => 'required|string|max:255',
             'Description' => 'nullable|string'
         ]);
 
-        $categoria->update($validated);
-        return redirect()->route('categorias.index')->with('success', 'Categoría actualizada exitosamente');
-    }
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $data = [
+                'errors' => $errors,
+                'message' => 'Error al validar los datos'
+            ];
 
-    public function destroy($id)
+            return response()->json($data, 422);
+        }
+
+        try {
+            $categoria = Categoria::find($id);
+            $categoria->CategoriaNombre = $request->get('CategoriaNombre');
+            $categoria->Description = $request->get('Description');
+            $categoria->save(); // aplicando el UPDATE tipocurso SET nombre = $reques WHERE id = $id
+            $data = ['message' => 'Actualizado correctamente'];
+            return response()->json($data, 200);
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            $data = [
+                'message' => 'Error al actualizar el tipo de curso'
+            ];
+            return response()->json($data, 500);
+        }
+
+
+    }
+    public function destroy(string $id)
     {
-        $categoria = Categoria::findOrFail($id);
-        $categoria->delete();
-        return redirect()->route('categorias.index')->with('success', 'Categoría eliminada exitosamente');
+        try {
+            $categoria = Categoria::where('CategoriaID', $id)->first();
+            if (!$categoria) {
+                return response()->json(['message' => 'Categoría no encontrada'], 404);
+            }
+            $categoria->delete(); // DELETE FROM categorias WHERE CategoriaID = $id
+
+            return response()->json(['message' => 'Eliminado correctamente'], 200);
+
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+
+            $data = ['message' => 'Error al eliminar tipo de curso'];
+
+            return response()->json($data, 500);
+        }
     }
 }
